@@ -44,7 +44,7 @@ class Post_model_mocking_db_test extends UnitTestCase {
             92 => 'How to Water Your Indoor Plants The Right Way.',
         ];
 
-        // Call a get_categories() function
+        // Call a get_posts() function
         $list = $this->obj->get_posts();
 
         // Assertions by titles of posts
@@ -54,15 +54,15 @@ class Post_model_mocking_db_test extends UnitTestCase {
     }
 
     public function test_create_post_success() {
-        // Succeeded mock return
-        $insertReturnSuccess = TRUE;
+        // Success mock return
+        $insertReturnError = TRUE;
 
         // Create mock objects for CI_DB_sqlite3_driver (system->database->drivers)
         // Create mock for method insert
         $db_result = $this->getMockBuilder('CI_DB_sqlite3_driver')
             ->disableOriginalConstructor()
             ->getMock();
-        $db_result->method('insert')->willReturn($insertReturnSuccess);
+        $db_result->method('insert')->willReturn($insertReturnError);
 
         // Verify invocations (mock, method)
         $this->verifyInvokedOnce($db_result, 'insert');
@@ -72,8 +72,8 @@ class Post_model_mocking_db_test extends UnitTestCase {
         // Call a create_post() function
         $this->obj->create_post('');
 
-        $expectedResult = TRUE;
-        $this->assertEquals($expectedResult, $insertReturnSuccess);
+        $expected = TRUE;
+        $this->assertEquals($expected, $insertReturnError);
     }
 
     public function test_create_post_error() {

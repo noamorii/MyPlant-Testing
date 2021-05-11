@@ -52,31 +52,45 @@ class User_Model_test extends TestCase {
     public function test_email_doesnt_exists() {
 
         // Arrange
-        $existsEmail = "chereole@fel.cvut.cz";
         $notExistsEmail = "fake@mail.cz";
         // Act
-        $CorrectResult = $this->CI->User_model->check_email_exists($existsEmail);
         $InCorrectResult = $this->CI->User_model->check_email_exists($notExistsEmail);
         // Asserts
-        $this->assertEquals(false, $CorrectResult);
         $this->assertEquals(true, $InCorrectResult);
-
     }
+
+    public function test_email_exists() {
+
+        // Arrange
+        $existsEmail = "chereole@fel.cvut.cz";
+        // Act
+        $CorrectResult = $this->CI->User_model->check_email_exists($existsEmail);
+        // Asserts
+        $this->assertNotEquals(true, $CorrectResult);
+    }
+
 
     public function test_check_username_doesnt_exists() {
 
         // Arrange
-        $existsUsername = "chereole";
         $notExistsUsername = "NotChereole";
         // Act
-        $CorrectResult = $this->CI->User_model->check_username_exists($existsUsername);
         $InCorrectResult = $this->CI->User_model->check_username_exists($notExistsUsername);
         // Asserts
-        $this->assertEquals(false, $CorrectResult);
         $this->assertEquals(true, $InCorrectResult);
 
     }
 
+    public function test_check_username_exists() {
+
+        // Arrange
+        $existsUsername = "chereole";
+        // Act
+        $CorrectResult = $this->CI->User_model->check_username_exists($existsUsername);
+        // Asserts
+        $this->assertnotEquals(true, $CorrectResult);
+
+    }
 
 
 }
