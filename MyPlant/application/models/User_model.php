@@ -32,11 +32,17 @@ class User_model extends CI_Model{
 
         $result = $this->db->get('users');
 
-        if($result->num_rows() == 1){
+        if($result->num_rows() > 0){
             return $result->row(0)->id;
         } else {
             return false;
         }
+    }
+
+    public function get_all_users() {
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('users');
+        return $query->result_array();
     }
 
     ///Check if username exists
@@ -49,7 +55,7 @@ class User_model extends CI_Model{
         }
     }
 
-    /// Check if email exists
+    /// Check if not email exists
     public function check_email_exists($email){
         $query = $this->db->get_where('users', array('email' => $email));
         if(empty($query->row_array())){
